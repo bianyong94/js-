@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #box{
+            position: relative;
+        }
+        #sbox{
+            width: 300px;
+            height: 300px;
+            
+        }
+        #bbox{
+            overflow: hidden;
+            position: absolute;
+            top: 0;
+            left: 300px;
+            width: 300px;
+            height: 300px;
+            display: none;
+        }
+        #zhe{
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 80px;
+            height: 80px;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+        }
+        #img1{
+            width: 100%;
+        }
+        #img2{
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        /* .ss{
+            width: 500px;
+            height: 500px;
+        } */
+    </style>
+</head>
+<body>
+    <div class="ss"></div>
+    <div id="box">     
+        <div id="sbox">
+            <span id="zhe"> </span>
+            <img id="img1" src="img/b1.jpg" alt="">
+        </div>
+        <div id="bbox">
+                <img id="img2" src="img/b2.jpg" alt="">
+        </div>
+    </div>
+    <script>
+        window.onload=function(){
+            var zhe=document.getElementById('zhe');
+            var sbox=document.getElementById('sbox');
+            var img2=document.getElementById('img2');
+            var bbox=document.getElementById('bbox');
+            sbox.onmouseover=function(){
+                zhe.style.display='block';
+                bbox.style.display='block';
+            }
+            sbox.onmouseout=function(){
+                zhe.style.display='none';
+                bbox.style.display='none';
+            }
+            sbox.onmousemove=function(event){
+                var event=event||window.event;
+                var xpos=event.clientX;
+                var ypos=event.clientY;
+                var l=xpos-zhe.clientWidth/2;
+                var t=ypos-zhe.clientHeight/2;
+               
+                if(l<0){
+                    l=0;
+                }
+                else if(l>sbox.clientWidth-zhe.clientWidth){
+                   l=sbox.clientWidth-zhe.clientWidth;
+                }
+                if(t<0){
+                   t=0;
+                }
+                else if(t>sbox.clientHeight-zhe.clientHeight){
+                   t=sbox.clientHeight-zhe.clientHeight;
+                }
+                var bili=(img2.clientWidth-bbox.clientWidth)/(sbox.clientWidth-zhe.clientWidth);
+                zhe.style.left=l+'px';
+                zhe.style.top=t+'px';
+                img2.style.left=-(l*bili)+'px';
+                img2.style.top=-(t*bili)+'px';
+            }
+        }
+    </script>
+</body>
+</html>
